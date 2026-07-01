@@ -1,0 +1,1477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1304</width>
+    <height>868</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">
+/* 1. MATAR EL FONDO NEGRO: Forzar a que todo sea verde claro y texto negro */
+QWidget {
+    background-color: #eafced; 
+    color: black;
+}
+
+/* 2. PESTAÑAS Y CONTENEDORES: Quitar bordes para que se vea limpio */
+QTabWidget::pane {
+    border: none;
+}
+QGroupBox {
+    background-color: transparent; /* Ahora sí dejará ver el verde de arriba */
+    border: none;
+  
+    font-weight: bold;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+} 
+
+/* 3. CAJAS DE TEXTO (Buscar, Cantidad): Para que sean blancas */
+QLineEdit, QComboBox, QSpinBox {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+/* 4. TABLAS (Productos y Carro): Blancas con cabecera verde fuerte */
+QTableWidget {
+    background-color: white;
+    color: black;
+    gridline-color: #d3d3d3;
+    border: 1px solid #d3d3d3;
+}
+QHeaderView::section {
+    background-color: #6cda7a; 
+    color: black;
+    font-weight: bold;
+    border: 1px solid #d3d3d3;
+}
+
+/* 5. BOTONES BASE: Texto blanco y bordes redondeados */
+QPushButton {
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+  
+}
+/* EL CARRO DE COMPRAS (Fondo lila) */
+QGroupBox#gboxCarroVenta {
+    background-color: #e6ccff;
+}
+
+/* COLORES DE LOS BOTONES */
+/* Cambia estos nombres por los tuyos (ej: btnAgregar, btnQuitar, etc.) */
+QPushButton#btnAgregarAlCarro { background-color: #007bff; }  /* Azul */
+QPushButton#btnQuitarCarroVenta { background-color: #dc3545; }   /* Rojo */
+QPushButton#btnConfirmarVenta { background-color: #28a745; } /* Verde */
+
+
+/* Estilo para todas las pestañas que NO están seleccionadas */
+QTabBar::tab {
+    background-color: #bbf7d0; /* El verde clarito de tu prototipo */
+    color: black;
+    padding: 8px 25px;
+    margin-right: 2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* Recuperar el AZUL exclusivo para la pestaña activa */
+QTabBar::tab:selected {
+    background-color: #007bff; /* El azul vibrante de tu diseño */
+    color: white;
+    font-weight: bold;
+}
+
+/* Efecto al pasar el mouse por las pestañas inactivas */
+QTabBar::tab:hover:!selected {
+    background-color: #86efac; /* Un verde levemente más oscuro al apuntar */
+}
+
+/* FONDO AZUL PARA LA ZONA DE BÚSQUEDA Y FILTRO */
+QGroupBox#gboxRegistrarVenta {
+    background-color: #dbeafe; 
+    border: none;
+    border-radius: 8px;        
+  
+}
+
+/* Aseguramos que el título tenga fondo transparente */
+QGroupBox#gboxRegistrarVenta::title {
+    background-color: transparent;
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 5px;
+}
+/* CABECERA MORADA SOLO PARA LA TABLA DEL CARRO DE COMPRAS */
+QTableWidget#tableCarroVenta QHeaderView::section {
+    background-color: #d8b4e2; /* Un morado un poco más oscuro que el fondo para que destaque */
+    color: black;
+    font-weight: bold;
+    border: 1px solid #d3d3d3;
+}
+/* HACER QUE LOS TEXTOS NO TENGAN FONDO PARCHE */
+QLabel {
+    background-color: transparent;
+    color: black;
+}
+QGroupBox::title {
+    background-color: transparent;
+    subcontrol-origin: margin;
+    color: black;
+}
+/* COLOR NARANJO AL SELECCIONAR FILAS EN LAS TABLAS */
+QTableWidget::item:selected {
+    background-color: #ff9800; /* Naranjo vibrante */
+    color: white;              /* Texto blanco para que resalte y se lea perfecto */
+}
+
+/* COLOR NARANJO AL SOMBREAR TEXTO EN LAS CAJAS (Buscar, Cantidad, etc.) */
+QLineEdit::selection, QSpinBox::selection, QComboBox::selection {
+    
+	background-color: rgb(255, 186, 101);
+    color: white;
+}</string>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabVenta">
+       <property name="styleSheet">
+        <string notr="true">gridline-color: rgb(255, 255, 255);</string>
+       </property>
+       <attribute name="title">
+        <string>Venta</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="labelRegistrarVenta">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>REGISTRAR VENTA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="gboxRegistrarVenta">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="3" column="0">
+            <widget class="QLabel" name="labelCatVenta">
+             <property name="text">
+              <string>Categoria:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="labelFiltroVenta">
+             <property name="text">
+              <string>Buscar:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="5">
+            <widget class="QSpinBox" name="spinBoxCantidadVenta"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="comboCatVenta"/>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLineEdit" name="lineFiltroVenta"/>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLabel" name="labelCantidadVenta">
+             <property name="text">
+              <string>Cantidad:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelBuscarProducto">
+             <property name="text">
+              <string>Buscar producto</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="6">
+            <widget class="QPushButton" name="btnAgregarAlCarro">
+             <property name="text">
+              <string>Agregar al Carro</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="gboxProductosVenta">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(206, 255, 174);</string>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="labelProductosVenta">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Productos disponibles</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tableProductosVenta">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <column>
+              <property name="text">
+               <string>Código</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Producto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Categoría</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Proveedor</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Unidad</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Stock disponible</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="gboxCarroVenta">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLabel" name="labelCarroVenta">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>Carro de Compras</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tableCarroVenta">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <column>
+              <property name="text">
+               <string>Código</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Producto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Cantidad</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio unitario</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Subtotal</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="gboxAccionesVenta">
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="btnQuitarCarroVenta">
+             <property name="text">
+              <string>Quitar del Carro</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="espacioVenta">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>791</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTotalVenta">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Total: $0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnConfirmarVenta">
+             <property name="text">
+              <string>Confirmar Venta</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabInventario">
+       <attribute name="title">
+        <string>Inventario</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QGroupBox" name="gboxInventarioGeneral">
+          <property name="styleSheet">
+           <string notr="true">background-color: #dbeafe;</string>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="1" column="2">
+            <widget class="QLabel" name="labelProvInventario">
+             <property name="text">
+              <string>Proveedor:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="6">
+            <widget class="QTableWidget" name="tableInventario">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <column>
+              <property name="text">
+               <string>Código</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Producto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Categoría</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Proveedor</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Unidad</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Stock</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Stock seg.</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Demanda est.</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Lead Time</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Punto reorden</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Estado</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Costo</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="labelFiltroInventario">
+             <property name="text">
+              <string>Buscar:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelCatInventario">
+             <property name="text">
+              <string>Categoria:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QComboBox" name="comboProvInventario">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QLineEdit" name="lineFiltroInventario">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="comboCatInventario">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelInventarioGen">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Inventario General</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabHistorial">
+       <attribute name="title">
+        <string>Historial</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="gboxHistCompras">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(216, 180, 226);</string>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="1" column="2">
+            <spacer name="espacioHistCompras">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>810</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="3">
+            <widget class="QPushButton" name="btnPDFHistCompras">
+             <property name="text">
+              <string>Generar PDF Compras</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelPeriodoHistCompras">
+             <property name="text">
+              <string>Periodo:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelHistorialCompras">
+             <property name="font">
+              <font>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Historial de Compras</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="comboPeriodoHistCompras">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="4">
+            <widget class="QTableWidget" name="tableHistorialCompras">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <column>
+              <property name="text">
+               <string>Fecha</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Tipo</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Código</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Producto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Cantidad</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio unitario</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Subtotal</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Descripción</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="gboxHistVentas">
+          <property name="styleSheet">
+           <string notr="true">background-color: #dbeafe;</string>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelPeriodoHistVentas">
+             <property name="text">
+              <string>Periodo:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="comboPeriodoHistVentas">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="btnPDFHistVentas">
+             <property name="text">
+              <string>Generar PDF Ventas</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="4">
+            <widget class="QTableWidget" name="tableHistorialVentas">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <column>
+              <property name="text">
+               <string>Fecha</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Tipo</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Código</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Producto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Cantidad</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio unitario</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Subtotal</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Descripción</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <spacer name="espacioHistVentas">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>823</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="labelHistorialVentas">
+             <property name="font">
+              <font>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Historial de Ventas</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelHistorialPrincipal">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>HISTORIAL</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabAnalisis">
+       <attribute name="title">
+        <string>Analisis</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QScrollArea" name="scrollAnalisis">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContentsAnalisis">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1252</width>
+             <height>1719</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QGroupBox" name="gboxSuperiorAnalisis">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLabel" name="labelAnalisis">
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">max-height: 50px;</string>
+                 </property>
+                 <property name="text">
+                  <string>ANÁLISIS</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>977</width>
+                   <height>11</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="labelPeriodoAnalisis">
+                 <property name="styleSheet">
+                  <string notr="true">max-height: 50px;</string>
+                 </property>
+                 <property name="text">
+                  <string>Periódo:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboPeriodoAnalisis"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="gboxResumenAnalisis">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QGroupBox" name="gboxVentasTotal">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: #dbeafe;
+min-height: 100px;</string>
+                 </property>
+                 <property name="title">
+                  <string/>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_7">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="labelVentasxDia">
+                    <property name="styleSheet">
+                     <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;</string>
+                    </property>
+                    <property name="text">
+                     <string>Ventas x días: </string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="gboxProductosCriticos">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(216, 180, 226)
+;</string>
+                 </property>
+                 <property name="title">
+                  <string/>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_6">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="labelProductosCriticos">
+                    <property name="styleSheet">
+                     <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;</string>
+                    </property>
+                    <property name="text">
+                     <string>Productos críticos: </string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="gboxGraficos">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <widget class="QChartView" name="chartProductosmasVendidos" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>40</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>500</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>5000</width>
+                   <height>5000</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(216, 180, 226);
+
+</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QChartView" name="chartVentas" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>40</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>500</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>5000</width>
+                   <height>5000</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(250, 255, 189);</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="tableAnalisis">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>500</height>
+               </size>
+              </property>
+              <column>
+               <property name="text">
+                <string>Código</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Producto</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Categoría</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Stock</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Demanda prom.</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Lead Time</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Punto reorden</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Estado</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabCompra">
+       <attribute name="title">
+        <string>Compra</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContentsCompras">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1252</width>
+             <height>816</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_11">
+            <item row="1" column="0">
+             <widget class="QGroupBox" name="gboxOrdenEdicion">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_9">
+               <item row="0" column="1">
+                <spacer name="spacerOrdenEdicion">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>759</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="0" colspan="5">
+                <widget class="QTableWidget" name="tableOrdenEdicion">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Código</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Producto</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Unidad</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Cantidad</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Costo unit.</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Subtotal</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QPushButton" name="btnQuitardeOrden">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+    background-color: #27AE60;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Quitar de la orden</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="labelOrdenEdicion">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Orden en edición</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="labelTotalOrden">
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Total: $0</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QPushButton" name="btnCrearOrden">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+    background-color: #27AE60;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Crear orden</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QGroupBox" name="gboxOrdenesRegistradas">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_10">
+               <item row="0" column="0">
+                <widget class="QLabel" name="labelOrdenesRegistradas">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Órdenes registradas</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" colspan="4">
+                <widget class="QTableWidget" name="tableOrdenesRegistradas">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>ID</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Fecha</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Proveedor</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Estado de la órden</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Total</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="btnOrdenRecibida">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+    background-color: #27AE60;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Órden recibida</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <spacer name="spacerOrdenesRegistradas">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>818</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="3">
+                <widget class="QPushButton" name="btnCancelarOrden">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+    background-color: #27AE60;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Cancelar órden</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="gboxSuperiorCompra">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_8">
+               <item row="0" column="0" colspan="2">
+                <widget class="QLabel" name="labelProductosCompra">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Productos del proveedor</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="labelProveedorCompra">
+                 <property name="text">
+                  <string>Proveedor:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="comboProveedorCompra"/>
+               </item>
+               <item row="1" column="2">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>489</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLabel" name="labelCantidadCompra">
+                 <property name="text">
+                  <string>Cantidad:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="4">
+                <widget class="QSpinBox" name="spinCantidadCompra"/>
+               </item>
+               <item row="1" column="5">
+                <widget class="QPushButton" name="btnAgregarProductoCompra">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+    background-color: #27AE60;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Agregar producto a orden</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="6">
+                <widget class="QPushButton" name="btnGenerarPedidoROP">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+    background-color: #27AE60;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Generar pedido sugerido</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="7">
+                <widget class="QTableWidget" name="tableProductosCompra">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Código</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Producto</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Categoría</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Unidad</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Stock</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Stock seg.</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Punto reorden</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Estado</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Costo unit.</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabConfig">
+       <attribute name="title">
+        <string>Configuración</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QGroupBox" name="gboxBaseDatos">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="title">
+           <string>Base de datos</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="btnCargarBaseDatos">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(185, 152, 255);
+color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>Cargar Base de Datos SQLite</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1304</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtCharts/QChartView</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
